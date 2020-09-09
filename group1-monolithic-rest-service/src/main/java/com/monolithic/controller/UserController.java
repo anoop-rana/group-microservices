@@ -1,5 +1,8 @@
 package com.monolithic.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +10,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,15 +42,15 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> findById(@PathVariable long id) {
-		Optional<User> User = service.findUserById(id);
-		return validateUser(User);
+	public ResponseEntity<EntityModel<User>> findById(@PathVariable long id) {
+		Optional<User> user = service.findUserById(id);
+		return validateUser(user);
 	}
 
 	@GetMapping("/name/{name}")
-	public ResponseEntity<Object> findByName(@PathVariable String name) {
-		Optional<User> User = service.findUserByName(name);
-		return validateUser(User);
+	public ResponseEntity<EntityModel<User>> findByName(@PathVariable String name) {
+		Optional<User> user = service.findUserByName(name);
+		return validateUser(user);
 	}
 
 	@PostMapping
@@ -70,10 +75,13 @@ public class UserController {
 		}
 	}
 
-	private ResponseEntity<Object> validateUser(Optional<User> User) {
-		if (User.isPresent())
-			return new ResponseEntity<Object>(User.get(), new HttpHeaders(), HttpStatus.OK);
-		else
+	private ResponseEntity<EntityModel<User>> validateUser(Optional<User> user) {
+		if (user.isPresent()) {
+			EntityModel<User> entity = EntityModel.of(user.get());
+			WebMvcLinkBuilder linkBuilder=linkTo(methodOn(this.getClass()).getAllUsers());
+			entity.add(linkBuilder.withRel("all-users"));
+			return new ResponseEntity<EntityModel<User>>(entity, new HttpHeaders(), HttpStatus.OK);
+		}else
 			throw new UserNotFoundException("User Not Found !");
 	}
 }
