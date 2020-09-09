@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,7 +49,7 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<User> createOrUpdate(@RequestBody User User) {
+	public ResponseEntity<User> createOrUpdate(@Valid @RequestBody User User) {
 		User updated = service.createOrUpdate(User);
 		URI location =ServletUriComponentsBuilder
 						.fromCurrentContextPath()
@@ -64,7 +66,7 @@ public class UserController {
 			service.deleteUser(id);
 			return new ResponseEntity<Object>("Deleted", new HttpHeaders(), HttpStatus.FORBIDDEN);
 		} else {
-			return new ResponseEntity<Object>("Not Found", new HttpHeaders(), HttpStatus.EXPECTATION_FAILED);
+			throw new UserNotFoundException("User with ID: "+ id + " Not Found !");
 		}
 	}
 

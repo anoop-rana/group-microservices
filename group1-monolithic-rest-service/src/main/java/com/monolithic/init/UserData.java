@@ -23,7 +23,7 @@ public class UserData implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		User u1 = new User("Arun", 25, 1234567890l, "arun@gmail.com");
-		User u2 = new User("Rahul", 15, 1212343423l, "rahul@gmail.com");
+		User u2 = new User("Rahul", 18, 1212343423l, "rahul@gmail.com");
 		User u3 = new User("Rohit", 23, 9097782343l, "rohit@gmail.com");
 		User u4 = new User("Ajay", 29, 9978564567L, "ajay@gmail.com");
 		User u5 = new User("Amar", 26, 9996757678L, "amar@gmail.com");
