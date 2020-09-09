@@ -71,6 +71,6 @@ public class UserController {
 		if (User.isPresent())
 			return new ResponseEntity<Object>(User.get(), new HttpHeaders(), HttpStatus.OK);
 		else
-			return new ResponseEntity<Object>("User Not Found", new HttpHeaders(), HttpStatus.OK);
+			throw new UserNotFoundException("User Not Found !");
 	}
 }
