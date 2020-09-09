@@ -1,4 +1,4 @@
-package com.monolithic.controller;
+package com.monolithic.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
