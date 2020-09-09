@@ -1,5 +1,6 @@
 package com.monolithic.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.monolithic.bean.User;
 import com.monolithic.services.UserService;
@@ -46,7 +48,12 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<User> createOrUpdate(@RequestBody User User) {
 		User updated = service.createOrUpdate(User);
-		return new ResponseEntity<User>(updated, new HttpHeaders(), HttpStatus.OK);
+		URI location =ServletUriComponentsBuilder
+						.fromCurrentContextPath()
+						.path("/user-api/{id}")
+						.buildAndExpand(updated.getUid())
+						.toUri();
+		return ResponseEntity.created(location).build();
 	}
 
 	@DeleteMapping("/{id}")
