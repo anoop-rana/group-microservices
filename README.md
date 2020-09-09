@@ -12,8 +12,16 @@ This repo containg microservice related labs
  
 ###### Advance Rest Service
   * Internationalized I18N [Issue #5]
+    1. LocaleResolver
+	2. AcceptHeaderLocaleResolver
   * Content Nagotiation
+    1. jackson-dataformat-xml
+  * Swagger Configuration
   * Versioning
+    1. URI Versioning [twitter]
+	2. Parameter/Param request versioning [amazon]
+	3. Header Versioning [Microsoft]
+	4. MediaType Versioning [Github]
   * json filter
   * Documentation
-  * monitoring web services
+  * monitoring web services [Actuator]
