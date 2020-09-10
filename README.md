@@ -17,6 +17,8 @@ This repo containg microservice related labs
   * Content Nagotiation
     1. jackson-dataformat-xml
   * Swagger Configuration
+    1. http://localhost:9090/v2/api-docs
+	2. http://localhost:9090/swagger-ui.html
   * Versioning
     1. URI Versioning [twitter]
 	2. Parameter/Param request versioning [amazon]
@@ -24,4 +26,6 @@ This repo containg microservice related labs
 	4. MediaType Versioning [Github]
   * json filter
   * Documentation
-  * monitoring web services [Actuator]
+  * monitoring web services [Actuator, HAL Browser]
+    1. http://localhost:9090 {HAL Browser}
+	2. http://localhost:9090/actuator {Actuator}
