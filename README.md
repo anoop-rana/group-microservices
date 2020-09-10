@@ -1,7 +1,7 @@
 ## Projects are divided into multiple groups
 This repo containg microservice related labs
 
-### Group 1: Monolithic Rest Service
+### Group 1: Monolithic Rest Service [group1-monolithic-rest-service]
 * Basic @PathVariable , @RequestBody etc annotation
 * Send back newly added item uri using -ServletUriComponentsBuilder
 * Exception Handling 
