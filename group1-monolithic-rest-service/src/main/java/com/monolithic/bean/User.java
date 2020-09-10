@@ -3,6 +3,7 @@ package com.monolithic.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,11 +35,11 @@ public class User {
 	@Min(value = 18)
 	private Integer age;
 	
+	@JsonIgnore
 	private Long phone;
 	private String email;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Post> comments=new ArrayList<>();
 	
 	
