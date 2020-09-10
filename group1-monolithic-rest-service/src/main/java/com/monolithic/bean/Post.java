@@ -28,8 +28,8 @@ public class Post {
 	@Setter@Getter
 	private String comments;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
 	@Getter @JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 
 	public Post(String comments) {
