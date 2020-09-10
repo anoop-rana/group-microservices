@@ -1,19 +1,12 @@
-package com.monolithic.bean;
+package com.userinfo.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,10 +16,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long uid;
+	private long uid;
 	
 	@Size(min = 2)
 	private String name;
@@ -34,14 +27,9 @@ public class User {
 	@Min(value = 18)
 	private Integer age;
 	
-	@JsonIgnore
 	private Long phone;
 	private String email;
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Post> comments=new ArrayList<>();
-	
-	
+
 	public User(String name, Integer age, Long phone, String email) {
 		super();
 		this.name = name;
@@ -49,5 +37,5 @@ public class User {
 		this.phone = phone;
 		this.email = email;
 	}
-	
+
 }
