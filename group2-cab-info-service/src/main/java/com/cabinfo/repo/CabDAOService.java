@@ -17,4 +17,6 @@ public interface CabDAOService extends JpaRepository<Vehicle, Long> {
 
 	Optional<Vehicle> findByDriverName(String driverName);
 
+	Optional<Vehicle> findByCabNo(String cabNo);
+
 }

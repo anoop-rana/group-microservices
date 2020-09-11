@@ -18,10 +18,10 @@ public class VehicleInit implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		List<Vehicle> list = List.of(
-				new Vehicle("Rajesh", "Tata Sumo", "Tracker", "Haridwar", "Kedharnath",340.00, false),
-				new Vehicle("Kishor", "Toyta", "Lux-Car", "Dehradun", "Delhi",310.00, true),
-				new Vehicle("Amir", "i10", "Mini Car", "Delhi", "Moradabad",620.00, false),
-				new Vehicle("Birju", "Red Bus", "Volvo", "Delhi", "Rajisthan",640.00, true));
+				new Vehicle("Rajesh", "Tata Sumo", "Tracker", "UK-07-3E78", "Haridwar", "Kedharnath",340.00, false),
+				new Vehicle("Kishor", "Toyta", "Lux-Car","DL-06-48F9", "Dehradun", "Delhi",310.00, true),
+				new Vehicle("Amir", "i10", "Mini Car","UP-22-3E65", "Delhi", "Moradabad",620.00, false),
+				new Vehicle("Birju", "Red Bus", "Volvo","RJ-05-9E08", "Delhi", "Rajisthan",640.00, true));
 		
 		repo.saveAll(list);
 	}

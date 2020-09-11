@@ -60,7 +60,6 @@ public class CabResource {
 
 	@GetMapping("/search")
 	public ResponseEntity<List<Vehicle>> findByType(@RequestParam Map<String, String> map) {
-		System.out.println("=============" + map);
 		if (map.size() == 1 && map.containsKey("type")) {
 			Optional<List<Vehicle>> vehicleListByType = service.findByType(map.get("type"));
 			if (vehicleListByType.isPresent()) {

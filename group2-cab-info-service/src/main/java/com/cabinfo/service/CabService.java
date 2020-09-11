@@ -37,10 +37,11 @@ public class CabService implements ICabService {
 
 	@Override
 	public Vehicle createORupdate(Vehicle vehicle) {
-		Optional<Vehicle> oldVehicle = repo.findByDriverName(vehicle.getDriverName());
+		Optional<Vehicle> oldVehicle = repo.findByCabNo(vehicle.getCabNo());
 		if (oldVehicle.isPresent()) {
 			Vehicle updateVehicle = oldVehicle.get();
 			updateVehicle.setName(vehicle.getName());
+			updateVehicle.setDriverName(vehicle.getDriverName());
 			updateVehicle.setType(vehicle.getType());;
 			updateVehicle.setRouteFrom(vehicle.getRouteFrom());
 			updateVehicle.setRouteTo(vehicle.getRouteTo());
