@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cabinfo</groupId>
-	<artifactId>group2-cab-info-service-1</artifactId>
+	<artifactId>group2-cab-info-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>group2-cab-info-service-1</name>
+	<name>group2-cab-info-service</name>
 	<description>Cab info rest service project for Spring Boot</description>
 
 	<properties>

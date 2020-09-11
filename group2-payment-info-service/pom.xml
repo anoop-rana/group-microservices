@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.paymentinfo</groupId>
-	<artifactId>group2-payment-info-service-2</artifactId>
+	<artifactId>group2-payment-info-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>group2-payment-info-service-2</name>
+	<name>group2-payment-info-service</name>
 	<description>Payment info rest service project for Spring Boot</description>
 
 	<properties>
