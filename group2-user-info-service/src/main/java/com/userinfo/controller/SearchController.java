@@ -26,12 +26,7 @@ public class SearchController {
 	@GetMapping("/{user}")
 	public ResponseEntity<Map<String, Object>> searchCabFromTo(@PathVariable String user, @RequestParam Map<String, String> fromTo) {
 		System.out.println("===================" + fromTo);
-		List<CabDto> availCabs = null;
-		try {
-			availCabs = cabProxy.searchCabs(fromTo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		List<CabDto> availCabs = cabProxy.searchCabs(fromTo);
 		System.out.println("================="+availCabs);
 		Map<String, Object> responseMap = Map.of("User",user,"Available Cabs",availCabs);
 		return new ResponseEntity<Map<String,Object>>(responseMap, HttpStatus.OK);
