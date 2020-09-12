@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cabinfo.bean.Vehicle;
+import com.cabinfo.config.CabCloudClientConfig;
 import com.cabinfo.exception.VehicleNotFound;
 import com.cabinfo.service.CabService;
 
@@ -36,7 +37,16 @@ public class CabResource {
 
 	@Autowired
 	private CabService service;
+	
+	@Autowired
+	CabCloudClientConfig config;
 
+	@GetMapping("/config")
+	public ResponseEntity<Map<String, String>> getCabConfig() {
+		Map<String, String> configData = Map.of("Login ", config.getAdmin(), "Password", config.getPassword());
+		return new ResponseEntity<Map<String, String>>(configData, new HttpHeaders(), HttpStatus.OK);
+	}
+	
 	@GetMapping(path = { "", "/all" })
 	public ResponseEntity<List<Vehicle>> getAllCabs() {
 		List<Vehicle> allVehicle = service.findAll();
