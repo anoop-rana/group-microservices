@@ -37,6 +37,7 @@ public class Vehicle {
 	@Min(value = 100)
 	private Double fare;
 	private Boolean isBooked;
+	private String port;
 	
 	public Vehicle(String driverName, String name, String type, String cabNo, String routeFrom, String routeTo, Double fare, Boolean isBooked) {
 		super();

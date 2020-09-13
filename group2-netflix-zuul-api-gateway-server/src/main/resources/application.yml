@@ -1,0 +1,14 @@
+zuul:
+    prefix: /ola
+    routes:
+      cab-service:
+        path: /cab/**
+        #url: http://desktop-jnrcv89:9020/cab
+        #url: http://localhost:9020/cab
+        service-id: cab-service
+      user-service:
+        path: /user/**
+        url: http://localhost:9010/user
+      payment-service:
+        path: /payment/**
+        url: http://localhost:9030/payment

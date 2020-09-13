@@ -7,10 +7,12 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -40,16 +42,24 @@ public class CabResource {
 	
 	@Autowired
 	CabCloudClientConfig config;
+	
+	@Value("${server.port}")
+	private String port;
 
 	@GetMapping("/config")
 	public ResponseEntity<Map<String, String>> getCabConfig() {
-		Map<String, String> configData = Map.of("Login ", config.getAdmin(), "Password", config.getPassword());
+		Map<String, String> configData = Map.of("Login ", config.getAdmin(), 
+				"Password", config.getPassword(),
+				"PORT", port);
 		return new ResponseEntity<Map<String, String>>(configData, new HttpHeaders(), HttpStatus.OK);
 	}
 	
 	@GetMapping(path = { "", "/all" })
 	public ResponseEntity<List<Vehicle>> getAllCabs() {
-		List<Vehicle> allVehicle = service.findAll();
+		List<Vehicle> allVehicle =service.findAll()
+				.stream()
+				.map(v->{v.setPort(port);return v;})
+				.collect(Collectors.toList());
 		return new ResponseEntity<List<Vehicle>>(allVehicle, new HttpHeaders(), HttpStatus.OK);
 	}
 
@@ -73,7 +83,11 @@ public class CabResource {
 		if (map.size() == 1 && map.containsKey("type")) {
 			Optional<List<Vehicle>> vehicleListByType = service.findByType(map.get("type"));
 			if (vehicleListByType.isPresent()) {
-				return new ResponseEntity<List<Vehicle>>(vehicleListByType.get(), HttpStatus.FOUND);
+				List<Vehicle> vList = vehicleListByType.get()
+						.stream()
+						.map(v->{v.setPort(port);return v;})
+						.collect(Collectors.toList());
+				return new ResponseEntity<List<Vehicle>>(vList, HttpStatus.FOUND);
 			} else {
 				throw new VehicleNotFound("Vehicle Type of " + map.get("type") + "Not Found !");
 			}
@@ -81,7 +95,11 @@ public class CabResource {
 			Optional<List<Vehicle>> vehicleListByFromTo = service.findByRoutes(map.get("routeFrom"),
 					map.get("routeTo"));
 			if (vehicleListByFromTo.isPresent()) {
-				return new ResponseEntity<List<Vehicle>>(vehicleListByFromTo.get(), HttpStatus.FOUND);
+				List<Vehicle> vList = vehicleListByFromTo.get()
+						.stream()
+						.map(v->{v.setPort(port);return v;})
+						.collect(Collectors.toList());
+				return new ResponseEntity<List<Vehicle>>(vList, HttpStatus.FOUND);
 			} else {
 				throw new VehicleNotFound(
 						"Vehicle from " + map.get("routeFrom") + " To " + map.get("routeTo") + " Not Available !");
@@ -121,9 +139,11 @@ public class CabResource {
 
 	private ResponseEntity<EntityModel<Vehicle>> validateCab(Optional<Vehicle> vehicle) {
 		if (vehicle.isPresent()) {
-			EntityModel<Vehicle> entity = EntityModel.of(vehicle.get());
+			Vehicle v = vehicle.get();
+			v.setPort(port);
+			EntityModel<Vehicle> entity = EntityModel.of(v);
 			WebMvcLinkBuilder linkBuilder = linkTo(methodOn(this.getClass()).getAllCabs());
-			entity.add(linkBuilder.withRel("all"));
+			entity.add(linkBuilder.withRel("all-cab-search"));
 			return new ResponseEntity<EntityModel<Vehicle>>(entity, new HttpHeaders(), HttpStatus.OK);
 		} else
 			throw new VehicleNotFound("Vehicle Not Found !");
