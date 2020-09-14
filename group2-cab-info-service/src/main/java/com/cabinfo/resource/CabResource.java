@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.EntityModel;
@@ -45,6 +47,9 @@ public class CabResource {
 	
 	@Value("${server.port}")
 	private String port;
+	
+	//creating Logger object  
+	private Logger logger=LoggerFactory.getLogger(this.getClass()); 
 
 	@GetMapping("/config")
 	public ResponseEntity<Map<String, String>> getCabConfig() {
@@ -80,6 +85,7 @@ public class CabResource {
 
 	@GetMapping("/search")
 	public ResponseEntity<List<Vehicle>> findByType(@RequestParam Map<String, String> map) {
+		logger.info("{}", map);
 		if (map.size() == 1 && map.containsKey("type")) {
 			Optional<List<Vehicle>> vehicleListByType = service.findByType(map.get("type"));
 			if (vehicleListByType.isPresent()) {
